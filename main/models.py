@@ -19,7 +19,7 @@ class Users(models.Model):
 class Image(models.Model):
     # user = models.ForeignKey(Users, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=20)
-    description = models.CharField(max_length=100, null=True, blank=True)
+    description = models.CharField(default="N/A", max_length=100, null=True, blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     image_address = models.URLField(max_length=200)
     whitelist = models.URLField(default="not provided", null=True, blank=True)
