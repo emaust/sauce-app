@@ -1,0 +1,42 @@
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" contents="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload</title>
+  </head>
+
+  <body>
+    
+    <form action='/upload/' method="post">{% csrf_token %}
+      <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+     
+      <p>
+        <label for="file_name">Name of Image (including file type):</label>  
+        <input type="text" name="file_name"></input>
+      </p>
+      
+      <p>
+        <label for="image_address">Image address:</label>  
+        <input type="text" name="image_address"></input>
+      </p>
+      
+      <p>
+        <label for="whitelist">Site posted (optional):</label>
+        <input type="text" name="whitelist"></input>
+      </p>
+      
+      <p>
+        <label for="description">Description (optional):</label>  
+        <input type="text" name="description"></input>  
+      </p>
+      
+      <div>
+        <input type="submit" value="Upload"></input>
+      </div>
+      
+    </form>
+
+  </body>
+</html>
