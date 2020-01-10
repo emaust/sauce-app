@@ -2,3 +2,5 @@ SauceProtecc
 
 Dependencies:
 -Postgres
+-CrispyForms
+-Bootstrap4

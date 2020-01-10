@@ -1,4 +1,6 @@
-
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -9,23 +11,20 @@
 
   <body>
    <section>
-    <div>
-      <small class="text-muted">Already have an account? <a href="#" class="ml-2">Sign In</a>
-    </div>
 
     <form method="POST">
       {%csrf_token%}
       <fieldset class="form-group">
         <legend class="border-bottom mb-4">Create Account</legend>
-        {{ form.as_p }}
+        {{ form|crispy }}
       </fieldset>
 
       <div class="form-group">
         <button class="btn btn-outline-info" type="submit">Create Account</button>
       </div>
     </form>
+    <div>
+      <small class="text-muted">Already have an account? <a href="#" class="ml-2">Sign In</a>
+    </div>
    </section>
-   
-
-  </body>
-</html>
+   {% endblock content %}

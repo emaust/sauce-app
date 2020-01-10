@@ -22,7 +22,7 @@ def detect_web(uri):
 
 
 def index(request):
-    return HttpResponse("INDEX")
+    return render(request, "index.html")
 
 
 class UploadImage(forms.Form):
@@ -48,7 +48,8 @@ def upload(request):
     return render(request, 'upload.html', {form: form})
 
 def results(request):
-    return HttpResponse("RESULTS")
+    return render(request, "results.html")
+
 
 def profile(request):
     return HttpResponse("PROFILE")
