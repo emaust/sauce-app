@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+
 {% block content %}
+
+
 
   <body>
     <section>
@@ -9,35 +12,41 @@
     {% endif %}
     
     <form action='/upload/' method="post">
-    {% csrf_token %}
-
-    <fieldset class="formgroup">
-      <legend class="border-bottom mb-4">Upload Image</legend>
-      <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-    </fieldset> 
-      <p>
-        <label for="file_name">Name of Image (including file type):</label>  
-        <input type="text" name="file_name"></input>
-      </p>
-      
-      <p>
-        <label for="image_address">Image address:</label>  
-        <input type="text" name="image_address"></input>
-      </p>
-      
-      <p>
-        <label for="whitelist">Site posted (optional):</label>
-        <input type="text" name="whitelist"></input>
-      </p>
-      
-      <p>
-        <label for="description">Description (optional):</label>  
-        <input type="text" name="description"></input>  
-      </p>
+      {% csrf_token %}
+      {% comment %} {% crispy form %} {% endcomment %}
+      <fieldset class="formgroup">
+        <legend class="border-bottom mb-4">Search for Image</legend>
+        {% comment %} <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> {% endcomment %}
+      </fieldset> 
+      <div>
+        <p>
+          <label for="file_name">Image Name:</label>  
+          <input type="text" name="file_name"></input>
+        </p>
+        
+        <p>
+          <label for="image_address">Image address:</label>  
+          <input type="text" name="image_address"></input>
+        </p>
+        
+        <p>
+          <label for="whitelist">Site posted (optional):</label>
+          <input type="text" name="whitelist"></input>
+        </p>
+        
+        <p>
+          <label for="description">Description (optional):</label>  
+          <input type="text" name="description"></input>  
+        </p>
+      </div>
       
       <div class="form-group">
-        <button type="submit" value="Upload" class="btn btn-outline-info">Upload</button>
-      </div>   
+        <button type="submit" value="Upload" class="btn btn-outline-info">Search</button>
+      </div>  
+
+      <div class="form-group mr-2">        
+        <label><input type="checkbox" class="mr-1"> Save to Profile</label>
+      </div> 
     </form>
   </section>
 {% endblock content %}
