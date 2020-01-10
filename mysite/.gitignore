@@ -122,3 +122,4 @@ GitHub.sublime-settings
 # random
 .history
 migrations/
+gapi.json
