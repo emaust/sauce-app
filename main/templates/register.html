@@ -1,0 +1,31 @@
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" contents="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload</title>
+  </head>
+
+  <body>
+   <section>
+    <div>
+      <small class="text-muted">Already have an account? <a href="#" class="ml-2">Sign In</a>
+    </div>
+
+    <form method="POST">
+      {%csrf_token%}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Create Account</legend>
+        {{ form.as_p }}
+      </fieldset>
+
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Create Account</button>
+      </div>
+    </form>
+   </section>
+   
+
+  </body>
+</html>

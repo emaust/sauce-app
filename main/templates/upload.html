@@ -8,6 +8,9 @@
   </head>
 
   <body>
+    {% if form.errors %}
+    <p>Something's afoot</p>
+    {% endif %}
     
     <form action='/upload/' method="post">{% csrf_token %}
       <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
