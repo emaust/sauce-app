@@ -1,20 +1,20 @@
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" contents="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Upload</title>
-  </head>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 
   <body>
+    <section>
     {% if form.errors %}
     <p>Something's afoot</p>
     {% endif %}
     
-    <form action='/upload/' method="post">{% csrf_token %}
+    <form action='/upload/' method="post">
+    {% csrf_token %}
+
+    <fieldset class="formgroup">
+      <legend class="border-bottom mb-4">Upload Image</legend>
       <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-     
+    </fieldset> 
       <p>
         <label for="file_name">Name of Image (including file type):</label>  
         <input type="text" name="file_name"></input>
@@ -35,11 +35,9 @@
         <input type="text" name="description"></input>  
       </p>
       
-      <div>
-        <input type="submit" value="Upload"></input>
-      </div>
-      
+      <div class="form-group">
+        <button type="submit" value="Upload" class="btn btn-outline-info">Upload</button>
+      </div>   
     </form>
-
-  </body>
-</html>
+  </section>
+{% endblock content %}
