@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from dotenv import load_dotenv
+load_dotenv()
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -80,7 +82,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get("DB_USER"),
         'PASSWORD': os.environ.get("DB_PASS"),
@@ -88,7 +90,8 @@ DATABASES = {
         'PORT': "5432",
     }
 }
-
+print(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+print(os.environ.get('DB_NAME'))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

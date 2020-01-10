@@ -19,7 +19,6 @@ urlpatterns = [
     path("", main_views.index, name='index'),
     path('upload/', main_views.upload, name='upload'),
     path('results/', main_views.results, name='results'),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
-    
+    path('login/', auth_views.LoginView.as_view(template_name='main/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='main/logout.html'), name='logout'),
 ]

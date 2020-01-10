@@ -10,16 +10,18 @@ from main.models import Image
 from google.cloud import vision
 from google.cloud.vision import types
 import json
+import os
 from google.cloud.vision import ImageAnnotatorClient
 
 def detect_web(uri):
     client = vision.ImageAnnotatorClient()
+    print(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
     image = vision.types.Image()
     image.source.image_uri = uri
 
     response = client.web_detection(image=image)
     annotations = response.web_detection
-
+    return response
 
 def index(request):
     return render(request, "index.html")
@@ -62,7 +64,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
-            return redirect('/upload/')
+            return redirect('/results/')
     else:
         form = UserRegisterForm()
     return render(request, 'register.html', {'form': form})
