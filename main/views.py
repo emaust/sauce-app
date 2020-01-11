@@ -35,11 +35,13 @@ class UploadImage(forms.Form):
 def upload(request):
 
     if request.method == 'POST':
+
         form = UploadForm(request.POST)
         if form.is_valid():
+            url = form.cleaned_data['image_address']
             form.save()
-            print(form)
-            response = detect_web("https://pbs.twimg.com/media/DXgQoJMVMAAkYrm.jpg")
+            print(url)
+            response = detect_web(url)
             print(response)
             return redirect('/upload/')
         else:
