@@ -1,8 +1,16 @@
-<!DOCTYPE html>
-<head>
-  <title>Results</title>
-  <body>
-    <h1>Results</h1>
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Results</h1>
+    {% for result in results %}
+      <ul>
+        <li>
+          {{ result }}
+        </li>
+      </ul>
+      
+    {% endfor %}
   </body>
-</head>
-</html>
+
+
+{% endblock %}

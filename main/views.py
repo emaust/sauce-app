@@ -23,28 +23,31 @@ def annotate(path):
     web_detection = client.web_detection(image=image).web_detection
     return web_detection
 
-def report(annotations):
+def page_matches(annotations):
 
     if annotations.pages_with_matching_images:
-        print('\n{} Pages with matching images retrieved'.format(
+        yield('\n{} Pages with matching images retrieved'.format(
         len(annotations.pages_with_matching_images)))
 
         for page in annotations.pages_with_matching_images:
-            print('Url   : {}'.format(page.url))
+            yield('Url  : {}'.format(page.url))
 
+def image_matches(annotations):
     if annotations.full_matching_images:
-        print('\n{} Full Matches found: '.format(
+        yield('\n{} Full Matches found: '.format(
             len(annotations.full_matching_images)))
-
+    
         for image in annotations.full_matching_images:
-            print('Url  : {}'.format(image.url))
+            yield('Url  : {}'.format(image.url))
 
+def partial_images(annotations):
     if annotations.partial_matching_images:
-        print('\n{} Partial Matches found: '.format(
+        yield('\n{} Partial Matches found: '.format(
             len(annotations.partial_matching_images)))
 
         for image in annotations.partial_matching_images:
-            print('Url  : {}'.format(image.url))
+            yield('Url  : {}'.format(image.url))
+
 
     # if annotations.web_entities:
     #     print('\n{} Web entities found: '.format(
@@ -67,6 +70,7 @@ def report(annotations):
         report(annotate(args.image_url))
 
 
+
 def index(request):
     return render(request, "index.html")
 
@@ -84,8 +88,9 @@ def upload(request):
         if form.is_valid():
             url = form.cleaned_data['image_address']
             form.save()
-            annotations = annotate(url)
-            return HttpResponse(annotate(url))
+            annotated = annotate(url)
+            results = page_matches(annotated)
+            return render(request, 'results.html', {"results": results})
         else:
             print("Upload failed")
 

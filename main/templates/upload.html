@@ -7,7 +7,7 @@
   <body>
     <section>
     {% if form.errors %}
-    <p>Something's afoot</p>
+      <p>Something's afoot</p>
     {% endif %}
     
     <form action='/upload/' method="post">
@@ -43,9 +43,6 @@
         <button type="submit" value="Upload" class="btn btn-outline-info">Search</button>
       </div>  
       
-        {{ annotations }}
-      
-
       <div class="form-group mr-2">        
         <label><input type="checkbox" class="mr-1"> Save to Profile</label>
       </div> 
