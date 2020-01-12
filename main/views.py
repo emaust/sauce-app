@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django import forms
 from main.forms import UploadForm
 from main.forms import UserRegisterForm
@@ -84,11 +85,7 @@ def upload(request):
             url = form.cleaned_data['image_address']
             form.save()
             annotations = annotate(url)
-            # detect_web(response)
-            # print(response)
-            formatted = report(annotations)
-            print(formatted)
-            return redirect('/upload/')
+            return HttpResponse(annotate(url))
         else:
             print("Upload failed")
 
