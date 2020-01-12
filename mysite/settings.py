@@ -90,8 +90,7 @@ DATABASES = {
         'PORT': "5432",
     }
 }
-print(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
-print(os.environ.get('DB_NAME'))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
