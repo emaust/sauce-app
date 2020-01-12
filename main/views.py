@@ -11,17 +11,60 @@ from google.cloud import vision
 from google.cloud.vision import types
 import json
 import os
+import argparse
 from google.cloud.vision import ImageAnnotatorClient
 
-def detect_web(uri):
+def annotate(path):
     client = vision.ImageAnnotatorClient()
-    print(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
     image = vision.types.Image()
-    image.source.image_uri = uri
+    image.source.image_uri = path
 
-    response = client.web_detection(image=image)
-    annotations = response.web_detection
-    return response
+    web_detection = client.web_detection(image=image).web_detection
+    return web_detection
+
+def report(annotations):
+
+    if annotations.pages_with_matching_images:
+        print('\n{} Pages with matching images retrieved'.format(
+        len(annotations.pages_with_matching_images)))
+
+        for page in annotations.pages_with_matching_images:
+            print('Url   : {}'.format(page.url))
+
+    if annotations.full_matching_images:
+        print('\n{} Full Matches found: '.format(
+            len(annotations.full_matching_images)))
+
+        for image in annotations.full_matching_images:
+            print('Url  : {}'.format(image.url))
+
+    if annotations.partial_matching_images:
+        print('\n{} Partial Matches found: '.format(
+            len(annotations.partial_matching_images)))
+
+        for image in annotations.partial_matching_images:
+            print('Url  : {}'.format(image.url))
+
+    # if annotations.web_entities:
+    #     print('\n{} Web entities found: '.format(
+    #     len(annotations.web_entities)))
+
+    #     for entity in annotations.web_entities:
+    #         print('Score      : {}'.format(entity.score))
+    #         print('Description: {}'.format(entity.description))
+
+
+    if __name__ == '__main__':
+        parser = argparse.ArgumentParser(
+            description=__doc__,
+            formatter_class=argparse.RawDescriptionHelpFormatter)
+        path_help = str('The image to detect, can be web URI, '
+            'Google Cloud Storage, or path to local file.')
+        parser.add_argument('image_url', help=path_help)
+        args = parser.parse_args()
+
+        report(annotate(args.image_url))
+
 
 def index(request):
     return render(request, "index.html")
@@ -40,9 +83,11 @@ def upload(request):
         if form.is_valid():
             url = form.cleaned_data['image_address']
             form.save()
-            print(url)
-            response = detect_web(url)
-            print(response)
+            annotations = annotate(url)
+            # detect_web(response)
+            # print(response)
+            formatted = report(annotations)
+            print(formatted)
             return redirect('/upload/')
         else:
             print("Upload failed")
