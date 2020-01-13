@@ -72,7 +72,7 @@ def partial_images(annotations):
 
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "index.html", {'title': 'Home'})
 
 
 class UploadImage(forms.Form):
@@ -113,8 +113,8 @@ def register(request):
     if form.is_valid(): 
       form.save()
       username = form.cleaned_data.get('username')
-      messages.success(request, f'Account created for {username}')
-      return redirect('upload')
+      messages.success(request, f'Account for {username} and can log in')
+      return redirect('login')
   else:
     form = UserRegistrationForm()
 
@@ -130,3 +130,6 @@ def register(request):
     # else:
     #     form = UserRegisterForm()
     # return render(request, 'register.html', {'form': form})
+
+def login(request):
+  return HttpResonse
