@@ -86,10 +86,11 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
-            url = form.cleaned_data['image_address']
             form.save()
+            url = form.cleaned_data['image_address']
             annotated = annotate(url)
             results = page_matches(annotated)
+            print(form)
             return render(request, 'results.html', {"results": results})
         else:
             print("Upload failed")

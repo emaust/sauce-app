@@ -10,7 +10,7 @@
       <p>Something's afoot</p>
     {% endif %}
     
-    <form action='/upload/' method="post">
+    <form action='.' method="post">
       {% csrf_token %}
       {% comment %} {% crispy form %} {% endcomment %}
       <fieldset class="formgroup">
