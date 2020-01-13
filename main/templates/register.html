@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-  <body>
    <section>
     <form method="POST">
       {%csrf_token%}
@@ -16,7 +15,7 @@
       </div>
     </form>
     <div>
-      <small class="text-muted">Already have an account? <a href="" class="ml-2">Sign In</a>
+      <small class="text-muted">Already have an account? <a href="{% url 'login' %}" class="ml-2">Sign In</a>
     </div>
    </section>
    {% endblock content %}
