@@ -5,8 +5,8 @@ from django.http import JsonResponse
 from django import forms
 from main.forms import UploadForm
 from .forms import UserRegistrationForm
-# from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from main.models import Image
 from google.cloud import vision
 from google.cloud.vision import types
@@ -103,10 +103,6 @@ def results(request):
     return render(request, "results.html")
 
 
-def profile(request):
-    return HttpResponse("PROFILE")
-
-
 def register(request):
   if request.method == 'POST':
     form = UserRegistrationForm(request.POST)
@@ -119,17 +115,8 @@ def register(request):
     form = UserRegistrationForm()
 
   return render(request, "register.html", {'form': form})
-    
-    #     form = UserRegisterForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         print(form)
-    #         username = form.cleaned_data.get('username')
-    #         messages.success(request, f'Account created for {username}')
-    #         return redirect('/index/')
-    # else:
-    #     form = UserRegisterForm()
-    # return render(request, 'register.html', {'form': form})
 
-def login(request):
-  return HttpResonse
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
