@@ -1,23 +1,11 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import User
 
-
-class Users(models.Model):
-    username = models.CharField(max_length=100)
-    avatar = models.CharField(max_length=300, null=True, blank=True)
-    name = models.CharField(max_length=300, null=True, blank=True)
-    email = models.EmailField(max_length=300, null=True, blank=True)
-    social_media = models.CharField(max_length=400, null=True, blank=True)
-
-    class Meta:
-        ordering = ["username", "name", "email", "social_media"]
-
-    # def __str__(self):
-    #     return 
 
 class Image(models.Model):
-    # user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=20)
     description = models.CharField(default="N/A", max_length=100, null=True, blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
