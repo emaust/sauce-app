@@ -12,8 +12,10 @@
       
     {% endfor %}
 
-  <div class="form-group mr-2">        
-    <label><input type="checkbox" class="mr-1"> Save to Profile</label>
-  </div> 
+  {% if user.is_authenticated %}
+    <div class="form-group mr-2">        
+      <label><input type="checkbox" class="mr-1"> Save to Profile</label>
+    </div> 
+  {% endif %}
 
 {% endblock %}
