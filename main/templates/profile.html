@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
@@ -9,8 +10,26 @@
       <div class="media-body">
         <h2 class="account-heading">{{ user.username }}</h2>
         <p class="text-secondary">{{ user.email }}</p>
+        {% comment %} <p class="text-secondary">{{ user.instagram }}</p>
+        <p class="text-secondary">{{ user.twitter }}</p>
+        <p class="text-secondary">{{ user.youtube }}</p>
+        <p class="text-secondary">{{ user.facebook }}</p>
+        <p class="text-secondary">{{ user.patreon }}</p> {% endcomment %}
       </div>
     </div
+
+    <form method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profile Info</legend>
+            {{ u_form|crispy }}
+            {{ p_form|crispy }}
+        </fieldset>
+
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+    </form>
   </div>
 
 {% endblock content %}

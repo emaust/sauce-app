@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    avatar = models.ImageField(default='profile_pics/default.jpg', upload_to='profile_pics', null=True, blank=True)
     instagram = models.CharField(max_length=50, null=True, blank=True)
     twitter = models.CharField(max_length=15, null=True, blank=True)
     youtube = models.CharField(max_length=70, null=True, blank=True)
