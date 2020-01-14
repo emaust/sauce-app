@@ -1,15 +1,9 @@
 from django.contrib import admin 
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-# from .views import index
-# from .views import upload
-# from .views import results
-# from .views import profile
-# from .views import register
 from main import views as main_views
-
-
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'main'
 
@@ -19,5 +13,7 @@ urlpatterns = [
     path("", main_views.index, name='index'),
     path('upload/', main_views.upload, name='upload'),
     path('results/', main_views.results, name='results'),
-
 ]
+
+if settings.DEBUG:
+  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
