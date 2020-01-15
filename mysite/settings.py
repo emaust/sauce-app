@@ -139,4 +139,4 @@ LOGIN_URL = 'login'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/profile_pics/'
 
-django-heroku.settings(locals())
+django_heroku.settings(locals())
