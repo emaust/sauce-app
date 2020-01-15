@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = FALSE
 
-ALLOWED_HOSTS = ['localhost', 'http://sauceprotecc.herokuapp.com/'']
+ALLOWED_HOSTS = ['localhost', 'http://sauceprotecc.herokuapp.com/']
 
 
 # Application definition
