@@ -109,7 +109,7 @@ def register(request):
     if form.is_valid(): 
       form.save()
       username = form.cleaned_data.get('username')
-      messages.success(request, f'Account for {username} and can log in')
+      messages.success(request, f'Account for {username} has been created. Log in to continue.')
       return redirect('login')
   else:
     form = UserRegistrationForm()
@@ -119,17 +119,30 @@ def register(request):
 
 @login_required
 def profile(request):
-    u_form = UserUpdateForm()
-    p_form = ProfileUpdateForm()
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+
+            messages.success(request, f'Profile updated')
+            return redirect('profile')
+        else:
+            print("error")
+            
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
-      'u-form': u_form,
-      'p_form': p_form
+        'u_form': u_form,
+        'p_form': p_form
     }
 
     return render(request, 'profile.html', context)
 
-    
+
 
 
 
