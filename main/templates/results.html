@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
   <h1>Results</h1>
     {% for result in results %}
       <ul>
@@ -10,7 +11,11 @@
       </ul>
       
     {% endfor %}
-  </body>
 
+  {% if user.is_authenticated %}
+    <div class="form-group mr-2">        
+      <label><input type="checkbox" class="mr-1"> Save to Profile</label>
+    </div> 
+  {% endif %}
 
 {% endblock %}
