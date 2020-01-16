@@ -26,9 +26,6 @@ def annotate(path):
 def page_matches(annotations):
 
     if annotations.pages_with_matching_images:
-        yield('\n{} Pages with matching images retrieved'.format(
-        len(annotations.pages_with_matching_images)))
-
         for page in annotations.pages_with_matching_images:
             yield('Url  : {}'.format(page.url))
 
