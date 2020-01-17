@@ -35,7 +35,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['avatar']
 
-class FlagSite(forms.ModelForm):
+class FlagSiteForm(forms.ModelForm):
 
     class Meta:
         model = Image

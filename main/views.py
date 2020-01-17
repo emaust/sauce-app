@@ -91,15 +91,10 @@ def upload(request):
             results = page_matches(annotated)
             print(form)
             return render(request, 'results.html', {"results": results})
-        else:
-            print("Upload failed")
 
     else:
         form = UploadForm()
     return render(request, 'upload.html', {form: form})
-
-def results(request):
-    return render(request, "results.html")
 
 
 def register(request):
@@ -142,7 +137,7 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
-
-
+def results(request):
+    return render(request, "results.html")
 
 
