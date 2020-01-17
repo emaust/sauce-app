@@ -6,6 +6,7 @@
     {% for result in results %}
       <ul>
         <li>
+<<<<<<< Updated upstream
           <div>
             {{ result }}
             {% if user.is_authenticated %}
@@ -14,15 +15,20 @@
               </div>
             {% endif %} 
           </div>
+=======
+          {{ result }}
+          {% if user.is_authenticated %}
+            <div class="form-group mr-2"> 
+              <form method="POST">
+              {%csrf_token%}       
+                <button class="btn btn-outline-info" type="submit">Report</button>
+            </div> 
+          {% endif %}
+>>>>>>> Stashed changes
         </li>
       </ul>
       
     {% endfor %}
 
-  {% if user.is_authenticated %}
-    <div class="form-group mr-2">        
-      <label><input type="checkbox" class="mr-1"> Save to Profile</label>
-    </div> 
-  {% endif %}
-
 {% endblock %}
+

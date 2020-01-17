@@ -83,6 +83,8 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
+            upload = form.save(commit=False)
+            upload.user=request.user
             form.save()
             url = form.cleaned_data['image_address']
             annotated = annotate(url)
