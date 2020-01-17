@@ -10,7 +10,7 @@ from main.models import Profile
 class UploadForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ('description', 'image_address', 'whitelist', 'file_name',)
+        fields = ('description', 'image_address', 'file_name',)
 
 form = UploadForm()
 
