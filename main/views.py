@@ -83,10 +83,14 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
-            upload = form.save(commit=False)
-            upload.user=request.user
-            form.save()
-            url = form.cleaned_data['image_address']
+            if request.user == True:
+                upload = form.save(commit=False)
+                upload.user=request.user
+                url = form.cleaned_data['image_address']
+                form.save()
+            else:
+                upload = form.save(commit=False)
+                url = form.cleaned_data['image_address']
             annotated = annotate(url)
             results = page_matches(annotated)
             print(form)
