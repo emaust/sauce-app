@@ -24,13 +24,16 @@ def annotate(path):
     return web_detection
 
 def page_matches(annotations):
-
+    
     if annotations.pages_with_matching_images:
         yield('\n{} Pages with matching images retrieved'.format(
         len(annotations.pages_with_matching_images)))
 
         for page in annotations.pages_with_matching_images:
-            yield('Url  : {}'.format(page.url))
+            yield format(page.url)
+            
+    
+
 
 def image_matches(annotations):
     if annotations.full_matching_images:
@@ -86,11 +89,16 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
-            form.save()
+            upload = form.save(commit=False)
+            upload.user=request.user
             url = form.cleaned_data['image_address']
             annotated = annotate(url)
             results = page_matches(annotated)
-            print(form)
+            upload.flagged = results
+            form.save()
+            # image = Image.object.filter(image_address=url)
+            # image.flagged = results
+            print(results)
             return render(request, 'results.html', {"results": results})
         else:
             print("Upload failed")
@@ -147,3 +155,41 @@ def profile(request):
 
 
 
+def upload(request):
+    if request.method == 'POST':
+        form = UploadForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context = form.cleaned_data['image_address']
+            return redirect(request, 'confirmation.html', context)
+    else:
+        form = UploadForm()
+    return render(request, 'upload.html', {form: form})
+
+def confirmation(request):
+    image = Image.objects.filter(image_address={context})
+    if request.method == 'POST':
+        annotated = annotate(image.image_address)
+        image.results = page_matches(annotated)
+
+    
+
+def upload(request):
+
+    if request.method == 'POST':
+
+        form = UploadForm(request.POST)
+        if form.is_valid():
+            upload = form.save(commit=False)
+            upload.user=request.user
+            url = form.cleaned_data['image_address']
+            annotated = annotate(url)
+            results = page_matches(annotated)
+            upload.flagged = results
+            form.save()
+            print(results)
+            return render(request, 'results.html', {"results": results})
+
+    else:
+        form = UploadForm()
+    return render(request, 'upload.html', {form: form})
