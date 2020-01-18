@@ -7,20 +7,14 @@
     {% for result in results %}
       <ul>
         <li>
-          {% comment %} {{ result }} {% endcomment %}
           <a href="{{ result }}">{{result}}</a>
               {%csrf_token%}       
               <div>
                 <button class="btn btn-primary btn-sm name="report">  Report </button>
-                {% comment %} <input type=checkbox>  Report</input> {% endcomment %}
             </div> 
         </li>
       </ul> 
     {% endfor %}
-{% comment %} 
-    <div class="form-group mr-2">        
-      <label><input type="checkbox" class="mr-1"> Save to Profile</label>
-    </div>  {% endcomment %}
 
     {% else %}
         {% for result in results %}
@@ -31,6 +25,8 @@
             </ul>  
         {% endfor %}
     {% endif %}
+
+    
   
 {% endblock %}
 
