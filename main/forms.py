@@ -7,12 +7,12 @@ from main.models import Image
 from main.models import Profile
 
 
-class UploadForm(forms.ModelForm):
+class SearchForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ('description', 'image_address', 'file_name',)
 
-form = UploadForm()
+form = SearchForm()
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=False)

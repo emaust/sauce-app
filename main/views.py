@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django import forms
-from main.forms import UploadForm
+from main.forms import SearchForm
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -73,16 +73,16 @@ def index(request):
     return render(request, "index.html", {'title': 'Home'})
 
 
-class UploadImage(forms.Form):
+class SearchImage(forms.Form):
 
     model = Image
     fields = '__all__'
 
-def upload(request):
+def search(request):
 
     if request.method == 'POST':
 
-        form = UploadForm(request.POST)
+        form = SearchForm(request.POST)
         if form.is_valid():
                 upload = form.save(commit=False)
                 anon = request.user.is_anonymous
@@ -113,8 +113,8 @@ def upload(request):
                 
 
     else:
-        form = UploadForm()
-    return render(request, 'upload.html', {form: form})
+        form = SearchForm()
+    return render(request, 'search.html', {form: form})
 
 
 def register(request):

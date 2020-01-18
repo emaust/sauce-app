@@ -8,11 +8,11 @@ from django.conf.urls.static import static
 app_name = 'main'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('register/', main_views.register, name='register'),
     path("", main_views.index, name='index'),
-    path('upload/', main_views.upload, name='upload'),
+    path('search/', main_views.search, name='search'),
     path('results/', main_views.results, name='results'),
+    path("<int:id>", main_views.results, name="")
 ]
 
 if settings.DEBUG:
