@@ -19,7 +19,6 @@ class Profile(models.Model):
 
 
 class Image(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=20)
     description = models.CharField(default="N/A", max_length=100, null=True, blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
