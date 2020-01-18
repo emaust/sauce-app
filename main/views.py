@@ -84,21 +84,33 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
-            if request.user:
                 upload = form.save(commit=False)
-                upload.user=request.user
-                address = form.cleaned_data['image_address']
-                annotated = annotate(address)
-                results = page_matches(annotated)
-                upload.results = results
-                upload.save()
-                return redirect('results')
-            else:
-                upload = form.save(commit=False)
-                address = form.cleaned_data['image_address']
-                annotated = annotate(address)
-                results = page_matches(annotated)
-                return render(request, 'results.html', {"results": results})
+                anon = request.user.is_anonymous
+                if anon == False:
+                    upload.user=request.user
+                    address = form.cleaned_data['image_address']
+                    annotated = annotate(address)
+                    results = page_matches(annotated)
+                    upload.results = results
+                    upload.save()
+                    return redirect('results')
+                else:
+                # if anon == True:
+                    # upload = form.save(commit=False)
+                    address = upload.image_address
+                    annotated = annotate(address)
+                    results = page_matches(annotated)
+                    return render(request, 'results.html', {"results": results})
+
+                    # upload.user=request.user
+                    # address = form.cleaned_data['image_address']
+                    # annotated = annotate(address)
+                    # results = page_matches(annotated)
+                    # upload.results = results
+                    # upload.save()
+                    # return redirect('results')
+                # else:
+                
 
     else:
         form = UploadForm()
