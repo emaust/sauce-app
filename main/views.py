@@ -24,13 +24,11 @@ def annotate(path):
     return web_detection
 
 def page_matches(annotations):
-
+    urls = []
     if annotations.pages_with_matching_images:
-        yield('\n{} Pages with matching images retrieved'.format(
-        len(annotations.pages_with_matching_images)))
-
         for page in annotations.pages_with_matching_images:
-            yield('Url  : {}'.format(page.url))
+            urls.append(format(page.url))
+    return urls
 
 def image_matches(annotations):
     if annotations.full_matching_images:
@@ -86,21 +84,25 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
-            form.save()
-            url = form.cleaned_data['image_address']
-            annotated = annotate(url)
-            results = page_matches(annotated)
-            print(form)
-            return render(request, 'results.html', {"results": results})
-        else:
-            print("Upload failed")
+            if request.user:
+                upload = form.save(commit=False)
+                upload.user=request.user
+                address = form.cleaned_data['image_address']
+                annotated = annotate(address)
+                results = page_matches(annotated)
+                upload.results = results
+                upload.save()
+                return redirect('results')
+            else:
+                upload = form.save(commit=False)
+                address = form.cleaned_data['image_address']
+                annotated = annotate(address)
+                results = page_matches(annotated)
+                return render(request, 'results.html', {"results": results})
 
     else:
         form = UploadForm()
     return render(request, 'upload.html', {form: form})
-
-def results(request):
-    return render(request, "results.html")
 
 
 def register(request):
@@ -143,7 +145,12 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+def results(request):
+    # if request.method == 'POST':
+    #     form = ReportForm(request.POST)
+    #     if form.is_valid():
+    #             form.save
 
-
+    return render(request, "results.html")
 
 

@@ -16,9 +16,9 @@
       <fieldset class="formgroup">
         <legend class="border-bottom mb-4">Search for Image</legend>
         {% comment %} <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> {% endcomment %}
+        {{form|crispy}}
       </fieldset> 
-      <div>
-        <p>
+         <p>
           <label for="file_name">Image Name:</label>  
           <input type="text" name="file_name"></input>
         </p>
@@ -26,11 +26,6 @@
         <p>
           <label for="image_address">Image address:</label>  
           <input type="text" name="image_address"></input>
-        </p>
-        
-        <p>
-          <label for="whitelist">Site posted (optional):</label>
-          <input type="text" name="whitelist"></input>
         </p>
         
         <p>

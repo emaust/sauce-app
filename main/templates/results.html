@@ -3,19 +3,37 @@
 {% block content %}
 
   <h1>Results</h1>
+  {% if user.is_authenticated %}
     {% for result in results %}
       <ul>
         <li>
-          {{ result }}
+          {% comment %} {{ result }} {% endcomment %}
+          <a href="{{ result }}">{{result}}</a>
+              {%csrf_token%}       
+              <div>
+                <button class="btn btn-primary btn-sm name="report">  Report </button>
+                {% comment %} <input type=checkbox>  Report</input> {% endcomment %}
+            </div> 
         </li>
-      </ul>
-      
+      </ul> 
     {% endfor %}
 
-  {% if user.is_authenticated %}
     <div class="form-group mr-2">        
       <label><input type="checkbox" class="mr-1"> Save to Profile</label>
     </div> 
-  {% endif %}
 
+    {% else %}
+        {% for result in results %}
+            <ul>
+                <li>
+                    {{ result }}
+                </li>
+            </ul>  
+        {% endfor %}
+    {% endif %}
+  
 {% endblock %}
+
+
+
+

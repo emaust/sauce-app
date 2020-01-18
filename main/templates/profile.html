@@ -8,27 +8,34 @@
       <image class="rounded-circle account-img" src="{{ user.profile.avatar.url }}">
       <div class="media-body">
         <h2 class="account-heading">{{ user.username }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
-        {% comment %} <p class="text-secondary">{{ user.instagram }}</p>
-        <p class="text-secondary">{{ user.twitter }}</p>
-        <p class="text-secondary">{{ user.youtube }}</p>
-        <p class="text-secondary">{{ user.facebook }}</p>
-        <p class="text-secondary">{{ user.patreon }}</p> {% endcomment %}
+        <p class="text-secondary">Email: {{ user.email }}</p>
+        <p>Instagram: {{ user.profile.instagram }}</p>
+        <p>Twitter: {{ user.profile.twitter }}</p>
+        <p>Youtube:  {{ user.profile.youtube }}</p>
+        <p>Facebook:  {{ user.profile.facebook }}</p>
+        <p>Patreon:  {{ user.profile.patreon }}</p> 
       </div>
     </div>
 
-    <form method="POST" enctype="multipart/form-data">
-      {%csrf_token%}
-      <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Profile Info</legend>
-        {{ u_form|crispy }}
-        {{ p_form|crispy }}
-      </fieldset>
+    <div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Click to Update Profile</a>
+    </div>
 
-      <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Update</button>
-      </div>
-    </form>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Update Profile Info</legend>
+                        {{ u_form|crispy }}
+                        {{ p_form|crispy }}
+                </fieldset>
+
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Update</button>
+                </div>
+            </form>
+        </div>
   </div>
 
 {% endblock content %}
