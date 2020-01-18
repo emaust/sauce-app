@@ -24,16 +24,11 @@ def annotate(path):
     return web_detection
 
 def page_matches(annotations):
-    
+    urls = []
     if annotations.pages_with_matching_images:
-        yield('\n{} Pages with matching images retrieved'.format(
-        len(annotations.pages_with_matching_images)))
-
         for page in annotations.pages_with_matching_images:
-            yield format(page.url)
-            
-    
-
+            urls.append(format(page.url))
+    return urls
 
 def image_matches(annotations):
     if annotations.full_matching_images:
@@ -89,26 +84,25 @@ def upload(request):
 
         form = UploadForm(request.POST)
         if form.is_valid():
-            upload = form.save(commit=False)
-            upload.user=request.user
-            url = form.cleaned_data['image_address']
-            annotated = annotate(url)
-            results = page_matches(annotated)
-            upload.flagged = results
-            form.save()
-            # image = Image.object.filter(image_address=url)
-            # image.flagged = results
-            print(results)
-            return render(request, 'results.html', {"results": results})
-        else:
-            print("Upload failed")
+            if request.user:
+                upload = form.save(commit=False)
+                upload.user=request.user
+                address = form.cleaned_data['image_address']
+                annotated = annotate(address)
+                results = page_matches(annotated)
+                upload.results = results
+                upload.save()
+                return redirect('results')
+            else:
+                upload = form.save(commit=False)
+                address = form.cleaned_data['image_address']
+                annotated = annotate(address)
+                results = page_matches(annotated)
+                return render(request, 'results.html', {"results": results})
 
     else:
         form = UploadForm()
     return render(request, 'upload.html', {form: form})
-
-def results(request):
-    return render(request, "results.html")
 
 
 def register(request):
@@ -151,45 +145,12 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+def results(request):
+    # if request.method == 'POST':
+    #     form = ReportForm(request.POST)
+    #     if form.is_valid():
+    #             form.save
+
+    return render(request, "results.html")
 
 
-
-
-def upload(request):
-    if request.method == 'POST':
-        form = UploadForm(request.POST)
-        if form.is_valid():
-            form.save()
-            context = form.cleaned_data['image_address']
-            return redirect(request, 'confirmation.html', context)
-    else:
-        form = UploadForm()
-    return render(request, 'upload.html', {form: form})
-
-def confirmation(request):
-    image = Image.objects.filter(image_address={context})
-    if request.method == 'POST':
-        annotated = annotate(image.image_address)
-        image.results = page_matches(annotated)
-
-    
-
-def upload(request):
-
-    if request.method == 'POST':
-
-        form = UploadForm(request.POST)
-        if form.is_valid():
-            upload = form.save(commit=False)
-            upload.user=request.user
-            url = form.cleaned_data['image_address']
-            annotated = annotate(url)
-            results = page_matches(annotated)
-            upload.flagged = results
-            form.save()
-            print(results)
-            return render(request, 'results.html', {"results": results})
-
-    else:
-        form = UploadForm()
-    return render(request, 'upload.html', {form: form})
