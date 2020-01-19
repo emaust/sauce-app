@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django import forms
 from main.forms import SearchForm
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm, ReportForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -113,10 +113,19 @@ def search(request):
 def results(request):
     iid = request.GET.get('image')
     display_image = Image.objects.all().get(id=iid)
-    results = display_image.results    
-    
+    results = display_image.results
     if request.method == 'POST':
-        print(display_image.results[0])
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            submitted = form.cleaned_data['reported']
+            image = Image.objects.get(image_address=display_image.image_address)
+            image.reported.append(submitted)
+            image.save()
+            # reported = form.reported
+            # display_image.reported.append(reported)
+            # form.save()
+            return render(request, 'results.html', {"results": results})
     return render(request, "results.html", {"results": results})
 
 def register(request):

@@ -40,4 +40,4 @@ class ReportForm(forms.ModelForm):
 
     class Meta:
         model = Image
-        fields = ['results']
+        fields = ['reported']
