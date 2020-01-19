@@ -109,6 +109,8 @@ def search(request):
         form = SearchForm()
     return render(request, 'search.html', {form: form})
 
+def diff(li1, li2): 
+    return (list(set(li1) - set(li2))) 
 
 def results(request):
     iid = request.GET.get('image')
@@ -120,11 +122,11 @@ def results(request):
             form.save()
             submitted = form.cleaned_data['reported']
             image = Image.objects.get(image_address=display_image.image_address)
-            image.reported.append(submitted)
+            flagged = submitted[0]
+            image.reported.append(flagged)
+            image.results.remove(flagged)
             image.save()
-            # reported = form.reported
-            # display_image.reported.append(reported)
-            # form.save()
+            
             return render(request, 'results.html', {"results": results})
     return render(request, "results.html", {"results": results})
 
