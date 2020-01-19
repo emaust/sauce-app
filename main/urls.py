@@ -12,7 +12,6 @@ urlpatterns = [
     path("", main_views.index, name='index'),
     path('search/', main_views.search, name='search'),
     path('results/', main_views.results, name='results'),
-    path("<int:id>", main_views.results, name="")
 ]
 
 if settings.DEBUG:

@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.http import JsonResponse
 from django import forms
 from main.forms import SearchForm
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from urllib.parse import urlencode
 from main.models import Image
 from google.cloud import vision
 from google.cloud.vision import types
-import json
+from google.cloud.vision import ImageAnnotatorClient
 import os
 import argparse
-from google.cloud.vision import ImageAnnotatorClient
+
 
 def annotate(path):
     client = vision.ImageAnnotatorClient()
@@ -94,33 +95,25 @@ def search(request):
                     upload.results = results
                     upload.save()
                     image = Image.objects.all().get(image_address=address)
-                    print(image.id)
-                    # get image with image_address
-                    # route to that image page with the image pk
-                    # pass that image
-                    return redirect('results')
+                    base_url = reverse('results')
+                    query_string = urlencode({'image': image.id})
+                    url = '{}?{}'.format(base_url, query_string)
+                    return redirect(url)
                 else:
-                # if anon == True:
-                    # upload = form.save(commit=False)
                     address = upload.image_address
                     annotated = annotate(address)
                     results = page_matches(annotated)
                     return render(request, 'results.html', {"results": results})
 
-                    # upload.user=request.user
-                    # address = form.cleaned_data['image_address']
-                    # annotated = annotate(address)
-                    # results = page_matches(annotated)
-                    # upload.results = results
-                    # upload.save()
-                    # return redirect('results')
-                # else:
-                
-
     else:
         form = SearchForm()
     return render(request, 'search.html', {form: form})
 
+
+def results(request):
+    iid = request.GET.get('image')
+    display_image = Image.objects.all().get(id=iid)
+    return render(request, "results.html")
 
 def register(request):
   if request.method == 'POST':
@@ -162,12 +155,6 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
-def results(request):
-    # if request.method == 'POST':
-    #     form = ReportForm(request.POST)
-    #     if form.is_valid():
-    #             form.save
 
-    return render(request, "results.html")
 
 
