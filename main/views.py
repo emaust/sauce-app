@@ -113,7 +113,8 @@ def search(request):
 def results(request):
     iid = request.GET.get('image')
     display_image = Image.objects.all().get(id=iid)
-    return render(request, "results.html")
+    results = display_image.results
+    return render(request, "results.html", {"results": results})
 
 def register(request):
   if request.method == 'POST':
