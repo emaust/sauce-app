@@ -7,10 +7,14 @@
     {% for result in results %}
       <ul>
         <li>
-          <a href="{{ result }}">{{ result }}</a>
-              {%csrf_token%}       
+          <a href="{{ result }}">{{ result }}</a>     
               <div>
-                <button class="btn btn-primary btn-sm name="report">  Report </button>
+                <form method="POST", action="#">
+                {%csrf_token%}  
+                 {{ form  }}
+                 <input type="hidden" id="reported" name="reported" value="{{ result }}"></input>
+                <button type="submit" class="btn btn-primary btn-sm">  Report </button>
+                </form>
             </div> 
         </li>
       </ul> 

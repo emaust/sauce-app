@@ -7,6 +7,7 @@ from main.models import Image
 from main.models import Profile
 
 
+
 class SearchForm(forms.ModelForm):
     class Meta:
         model = Image
@@ -34,3 +35,9 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar', 'instagram', 'twitter', 'youtube', 'website', 'patreon']
+
+class ReportForm(forms.ModelForm):
+
+    class Meta:
+        model = Image
+        fields = ['reported']
