@@ -93,6 +93,11 @@ def search(request):
                     results = page_matches(annotated)
                     upload.results = results
                     upload.save()
+                    image = Image.objects.all().get(image_address=address)
+                    print(image.id)
+                    # get image with image_address
+                    # route to that image page with the image pk
+                    # pass that image
                     return redirect('results')
                 else:
                 # if anon == True:
