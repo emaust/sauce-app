@@ -1,0 +1,52 @@
+/* body {
+    background-image: url("https://i.imgur.com/9kuv324.png");
+    align-content: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+  */
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  .left {
+    left: 0;
+    background-color: white;
+  }
+
+.right {
+  right: 0;
+
+  background-color: white;
+}
+.container {
+    width: 750px;
+    height: 750px;
+
+}
+.container img {
+    padding-top: 1em;
+    width: 100%;
+    height: auto;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.booton {
+    margin: 3em;
+}

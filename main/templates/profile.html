@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
 
 {% block content %}
 
+<div class="container" style="margin-left: 4em; margin-top 2em;">
   <div class="content-section">
     <div class="media">
       {% comment %} <image class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
@@ -21,24 +23,75 @@
     </div>
 
         
-        {% for image in images %}
-            <ul>
-                <li><img src="{{ image.image_address }}" /><li>
-                <li>{{ image.file_name }}</li>
-                <h3>Results</h3>
-                {% for result in image.results %}
+{% for image in images %}
+<div class="accordion md-accordion accordion-1" id="accordionEx23" role="tablist">
+  <div class="card">
+    <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading96">
+      <h5 class="text-uppercase mb-0 py-1">
+        <a class="white-text" data-toggle="collapse" href="#collapse96" aria-expanded="true"
+          aria-controls="collapse96">
+          <p class="text-muted small">Image # {{image.id}} -- {{ image.file_name}}</p>
+        </a>
+      </h5>
+    </div>
+    <div id="collapse96" class="collapse show" role="tabpanel" aria-labelledby="heading96"
+      data-parent="#accordionEx23">
+      <div class="card-body">
+        <div class="row my-4">
+          <div class="col-md-8">
+            <h2 class="font-weight-bold mb-3 black-text">{{ image.file_name}}</h2>
+            {% comment %} <p class=""><img src="{{ image.image_address }}" /></p> {% endcomment %}
+            <p class="mb-0">{{ image.date_posted }}</p>
+            <div class="col-md-4 mt-3 pt-2">
+            {% comment %} <div class="view z-depth-1"> {% endcomment %}
+              <img src="{{ image.image_address }}" />
+            {% comment %} </div> {% endcomment %}
+          </div>
+            <h3>Results</h3>
+             {% for result in image.results %}
+                <p class="mb-0" style="margin-left: 1em;"><a href="{{ result }}">{{result}}</a></p>
+                {% endfor %}
+            <h3>Reported Sites</h3>
+               {% for report in image.reported %}
+                <p class="mb-0"><a href="{{report}}">{{ report }}</a></p>
+          
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+{% endfor %}
+<!--Accordion wrapper-->
+
+
+
+
+
+
+
+        {% comment %} {% for image in images %} {% endcomment %}
+            {% comment %} <ul>
+                <li><img src="{{ image.image_address }}" /><li> {% endcomment %}
+                {% comment %} <li>{{ image.file_name }}</li> {% endcomment %}
+                {% comment %} <li>{{ image.date_posted }}</li> {% endcomment %}
+                {% comment %} <h3>Results</h3> {% endcomment %}
+                {% comment %} {% for result in image.results %}
                     <ul>
                         <li><a href="{{ result }}">{{result}}</a></li>
                     </ul>
-                {% endfor %}
-                <h3>Reported</h3>
-                {% for report in image.reported %}
+                {% endfor %} {% endcomment %}
+                {% comment %} <h3>Reported</h3> {% endcomment %}
+                {% comment %} {% for report in image.reported %}
                 
                     <ul>
                         <li><a href="{{report}}"">{{ report }}</a></li>
                     </ul>
-                {% endfor %}
-        {% endfor %}
+                {% endfor %} {% endcomment %}
+        {% comment %} {% endfor %} {% endcomment %}
     
       
         {% comment %} <h1 class="display-4">{{ user.username }}</h2>
@@ -69,5 +122,5 @@
             </form>
         </div>
   </div>
-
+</div>
 {% endblock content %}
