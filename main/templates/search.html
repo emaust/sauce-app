@@ -6,16 +6,13 @@
 
   <body>
     <section>
-    {% if form.errors %}
-      <p>Something's afoot</p>
-    {% endif %}
     
     <form action='.' method="post">
       {% csrf_token %}
       {% comment %} {% crispy form %} {% endcomment %}
       <fieldset class="formgroup">
         <legend class="border-bottom mb-4">Search for Image</legend>
-        {% comment %} <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> {% endcomment %}
+        <p class="small">Images originating from social media must be hosted publicly for search to be successful</p>
         {{form|crispy}}
       </fieldset> 
          <p>
