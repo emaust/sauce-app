@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
+
 {% block content %}
 
   <div class="content-section">
@@ -8,25 +9,45 @@
       {% comment %} <image class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
     <div class="media-body">
     <p><h1 class="display-4">{{ user.username }}</h1><small class="text-muted">Email: {{ user.email }}</small></p>
+
+    <div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Instagram: {{ user.profile.instagram }}</li>
+            <li class="list-group-item">Twitter: {{ user.profile.twitter }}</li>
+            <li class="list-group-item">Youtube:  {{ user.profile.youtube }}</li>
+            <li class="list-group-item">Facebook:  {{ user.profile.facebook }}</li>
+            <li class="list-group-item">Patreon:  {{ user.profile.patreon }}</li> 
+        <ul>
+    </div>
+
         
+        {% for image in images %}
+            <ul>
+                <li><img src="{{ image.image_address }}" /><li>
+                <li>{{ image.file_name }}</li>
+                <h3>Results</h3>
+                {% for result in image.results %}
+                    <ul>
+                        <li><a href="{{ result }}">{{result}}</a></li>
+                    </ul>
+                {% endfor %}
+                <h3>Reported</h3>
+                {% for report in image.reported %}
+                
+                    <ul>
+                        <li><a href="{{report}}"">{{ report }}</a></li>
+                    </ul>
+                {% endfor %}
+        {% endfor %}
     
       
         {% comment %} <h1 class="display-4">{{ user.username }}</h2>
         <p class="text-secondary">Email: {{ user.email }}</p> {% endcomment %}
 
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item">Instagram: {{ user.profile.instagram }}</li>
-        <li class="list-group-item">Twitter: {{ user.profile.twitter }}</li>
-        <li class="list-group-item">Youtube:  {{ user.profile.youtube }}</li>
-        <li class="list-group-item">Facebook:  {{ user.profile.facebook }}</li>
-        <li class="list-group-item">Patreon:  {{ user.profile.patreon }}</li> 
-        <ul>
       </div>
     </div>
 
-    {% for image in user.image %}
-        <img src="{{ user.image.image_address }}" />
-    {% endfor %}
+    
 
     <div>
         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Click to Update Profile</a>

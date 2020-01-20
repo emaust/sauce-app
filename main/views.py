@@ -88,7 +88,7 @@ def search(request):
                 upload = form.save(commit=False)
                 anon = request.user.is_anonymous
                 if anon == False:
-                    upload.user=request.user
+                    upload.user = request.user
                     address = form.cleaned_data['image_address']
                     annotated = annotate(address)
                     results = page_matches(annotated)
@@ -126,7 +126,8 @@ def results(request):
     if request.method == 'POST':
         form = ReportForm(request.POST)
         if form.is_valid():
-            form.save()
+            report = form.save(commit=False)
+            report.user = request.user
             submitted = form.cleaned_data['reported']
             image = Image.objects.get(image_address=display_image.image_address)
             flagged = submitted[0]
@@ -153,6 +154,9 @@ def register(request):
 
 @login_required
 def profile(request):
+    user = request.user
+    images = Image.objects.filter(user_id=user.id)
+
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -171,7 +175,8 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'images': images
     }
 
     return render(request, 'profile.html', context)
