@@ -116,6 +116,13 @@ def results(request):
     iid = request.GET.get('image')
     display_image = Image.objects.all().get(id=iid)
     results = display_image.results
+    image = display_image.image_address
+
+    context = {
+        'results': results,
+        'image': image
+    }
+
     if request.method == 'POST':
         form = ReportForm(request.POST)
         if form.is_valid():
@@ -126,9 +133,9 @@ def results(request):
             image.reported.append(flagged)
             image.results.remove(flagged)
             image.save()
-            
-            return render(request, 'results.html', {"results": results})
-    return render(request, "results.html", {"results": results})
+            messages.success(request, 'Image flagged')
+            return render(request, 'results.html', context)
+    return render(request, "results.html", context)
 
 def register(request):
   if request.method == 'POST':
