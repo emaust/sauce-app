@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
+
+{% block styling %}
 <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+{% endblock %}
 
 {% block content %}
 
@@ -47,13 +50,13 @@
               <img src="{{ image.image_address }}" />
             {% comment %} </div> {% endcomment %}
           </div>
-            <h3>Results</h3>
+            <p class="lead">Results</p>
              {% for result in image.results %}
                 <p class="mb-0" style="margin-left: 1em;"><a href="{{ result }}">{{result}}</a></p>
                 {% endfor %}
-            <h3>Reported Sites</h3>
+            <p class="lead">Reported Sites</p>
                {% for report in image.reported %}
-                <p class="mb-0"><a href="{{report}}">{{ report }}</a></p>
+                <p class="mb-0"><a class="reported" href="{{report}}">{{ report }}</a></p>
           
                 {% endfor %}
           </div>
