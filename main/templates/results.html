@@ -8,9 +8,56 @@
 
 
 {% block content %}
-    <img src="{{ image }}" alt="search image" />
 
-  {% if user.is_authenticated %}
+<div class="row h-100 tippy-top">
+<div class="col-sm-12 my-auto">
+<div class="card card-block w-50 mx-auto">    
+    <div class="row h-100">
+        <div class="col-sm-12 my-auto">
+            <div class="card text-center search">
+                <div class="card-body">
+                <p class="display-2 card-title banner tootle">Content Results</p>
+                <p class="small">Click the red button to flag a website using your content without permission.</p>
+                    <div class="card-text">
+                        {% if user.is_authenticated %}
+                            {% for result in results %}
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                    <a href="{{ result }}">{{ result }}</a>     
+                                        <div>
+                                        <form method="POST", action="#">
+                                        {%csrf_token%}  
+                                        {{ form  }}
+                                        <input type="hidden" id="reported" name="reported" value="{{ result }}"></input>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
+                                        </form>
+                                        </div> 
+                                    </li>
+                                </ul> 
+                            {% endfor %}
+                        {% else %}
+                            {% for result in results %}
+                                <ul>
+                                    <li>{{ result }}</li>
+                                </ul>  
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</section>
+</body>
+
+{% comment %} {% block content %} {% endcomment %}
+    {% comment %} <img src="{{ image }}" alt="search image" /> {% endcomment %}
+
+  {% comment %} {% if user.is_authenticated %}
     {% for result in results %}
       <ul class="list-group">
         <li class="list-group-item">
@@ -33,7 +80,7 @@
                 <li>{{ result }}</li>
             </ul>  
         {% endfor %}
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     
   
