@@ -27,14 +27,14 @@
 }
 
 .container {
-    width: 750px;
-    height: 750px;
+    height: 100%;
+    width: 100%;
     padding-top: 1em;
 
 }
 .container img {
     padding-top: 1em;
-    width: 100%;
+    width: contain;
     height: auto;
 }
 
@@ -49,8 +49,8 @@ a:hover {
 }
 
 .booton {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    /* padding-top: 1em;
+    padding-bottom: 1em; */
     background-color: white;
     color: black;
     margin-bottom: 2em;

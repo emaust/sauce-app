@@ -17,30 +17,55 @@
             <div class="card text-center search">
                 <div class="card-body">
                 <p class="display-2 card-title banner tootle">Content Results</p>
-                <p class="small">Click the red button to flag a website using your content without permission.</p>
+                {% comment %} <p class="small">Click the red button to flag a website using your content without permission.</p> {% endcomment %}
                     <div class="card-text">
                         {% if user.is_authenticated %}
-                            {% for result in results %}
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                    <a href="{{ result }}">{{ result }}</a>     
-                                        <div>
+                        <p class="small">Click the red button to flag a website using your content without permission.</p>
+                        
+                            <table class="table table-hover">
+                                <tbody>
+                                    {% for result in results %}
+                                    <tr>
+                                        <td><a href="{{ result }}">{{ result }}</a>
+                                            <form method="POST", action="#">
+                                            {%csrf_token%}  
+                                            {{ form  }}
+                                            <input type="hidden" id="reported" name="reported" value="{{ result }}"></input><br>
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
+                                            </form>
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                                
+                                {% comment %} <ul class="list-group"> {% endcomment %}
+                                    {% comment %} <li class="list-group-item"> {% endcomment %}
+                                    {% comment %} <a href="{{ result }}">{{ result }}</a>      {% endcomment %}
+                                        {% comment %} <div>
                                         <form method="POST", action="#">
                                         {%csrf_token%}  
                                         {{ form  }}
-                                        <input type="hidden" id="reported" name="reported" value="{{ result }}"></input>
+                                        <input type="hidden" id="reported" name="reported" value="{{ result }}"></input><br>
                                         <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
                                         </form>
                                         </div> 
                                     </li>
-                                </ul> 
+                                </ul>  {% endcomment %}
                             {% endfor %}
                         {% else %}
-                            {% for result in results %}
-                                <ul>
+                            <table class="table table-hover">
+                                <tbody>
+                                    {% for result in results %}
+                                        <tr>
+                                            <td><a href="{{result}}">{{ result }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                                {% comment %} <ul>
                                     <li>{{ result }}</li>
-                                </ul>  
-                            {% endfor %}
+                                </ul>   {% endcomment %}
+                            {% comment %} {% endfor %} {% endcomment %}
                         {% endif %}
                     </div>
                 </div>  
