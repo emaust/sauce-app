@@ -1,18 +1,77 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
+
+{% block styling %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/search.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
+<body>
+<section>
+ {% comment %} <div class="row h-100 tippy-top">
+        <div class="col-sm-12 my-auto">
+            <div class="card card-block w-50 mx-auto">
+            </div>
+            </div>
+            </div> {% endcomment %}
 
 
+    <!--vertical align on parent using my-auto, horizontal align on self mx-auto-->
+    <div class="row h-100 tippy-top">
+        <div class="col-sm-12 my-auto">
+            <div class="card card-block w-50 mx-auto">    
+            <div class="row h-100">
+            <div class="col-sm-12 my-auto">
+                <div class="card text-center search">
+                    <div class="card-body">
+                        <p class="display-2 card-title banner tootle">Find Content</p>
+                        <p class="small">Enter an image address to find the websites using your image.</p>
+                        <div class="card-text">
+                        <form action='.' method="post">
+                            {% csrf_token %}
+      
+                            <fieldset class="formgroup">
+        {% comment %} <legend class="border-bottom mb-4">Search for Image</legend> {% endcomment %}
+                            {{form|crispy}}
+                            </fieldset> 
+                            <p class="form-group"> 
+                                <input class="form-control" type="text" name="file_name" placeholder="Image Name"></input>
+                            </p>
+                            
+                            <p class="form-group">
+                                <input class="form-control" type="text" name="image_address" placeholder="Image Address"></input>
+                            </p>
+                            
+                        </div>
+                    </div>
 
-  <body>
-    <section>
+                    <div class="form-group">
+                        <button type="submit" value="Search" class="btn btn-dark">Search</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    </div>
+</div>
+</div>
+</section>
+</body>
+
+{% endblock content %}
+
+  {% comment %} <body>
+    <section> {% endcomment %}
     
-    <form action='.' method="post">
+    {% comment %} <form action='.' method="post">
       {% csrf_token %}
-      {% comment %} {% crispy form %} {% endcomment %}
+      
       <fieldset class="formgroup">
         <legend class="border-bottom mb-4">Search for Image</legend>
-        <p class="small">Images originating from social media must be hosted publicly for search to be successful</p>
+      
         {{form|crispy}}
       </fieldset> 
          <p>
@@ -30,11 +89,11 @@
           <input type="text" name="description"></input>  
         </p>
       </div>
-      
-      <div class="form-group">
+       {% endcomment %}
+      {% comment %} <div class="form-group">
         <button type="submit" value="Search" class="btn btn-outline-info">Search</button>
-      </div>  
+      </div>   {% endcomment %}
       
-    </form>
+    {% comment %} </form>
   </section>
-{% endblock content %}
+{% endblock content %} {% endcomment %}

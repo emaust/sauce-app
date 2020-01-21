@@ -1,19 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block styling %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/results.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+{% endblock %}
+
 
 {% block content %}
     <img src="{{ image }}" alt="search image" />
-  <h1>Results</h1>
+
   {% if user.is_authenticated %}
     {% for result in results %}
-      <ul>
-        <li>
+      <ul class="list-group">
+        <li class="list-group-item">
           <a href="{{ result }}">{{ result }}</a>     
               <div>
                 <form method="POST", action="#">
                 {%csrf_token%}  
                  {{ form  }}
                  <input type="hidden" id="reported" name="reported" value="{{ result }}"></input>
-                <button type="submit" class="btn btn-primary btn-sm">  Report </button>
+                <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
                 </form>
             </div> 
         </li>

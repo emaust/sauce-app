@@ -11,3 +11,8 @@ a:hover {
  .reported {
      color: orangered;
 }
+
+
+.under {
+    border-bottom: 2px solid black;
+}
