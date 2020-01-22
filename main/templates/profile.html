@@ -47,18 +47,36 @@
             <p class="mb-0">{{ image.date_posted }}</p>
             <div class="col-md-4 mt-3 pt-2">
             {% comment %} <div class="view z-depth-1"> {% endcomment %}
-              <img src="{{ image.image_address }}" />
+              <img src="{{ image.image_address }}" class="img-thumbnail" />
             {% comment %} </div> {% endcomment %}
           </div>
             <p class="lead">Results</p>
-             {% for result in image.results %}
+               <table class="table table-hover">
+                    <tbody>
+                        {% for result in image.results %}
+                            <tr>
+                                <td><a href="{{result}}">{{ result }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+             {% comment %} {% for result in image.results %}
                 <p class="mb-0" style="margin-left: 1em;"><a href="{{ result }}">{{result}}</a></p>
-                {% endfor %}
+                {% endfor %} {% endcomment %}
             <p class="lead">Reported Sites</p>
-               {% for report in image.reported %}
+               <table class="table table-hover">
+                                <tbody>
+                                    {% for report in image.reported %}
+                                        <tr>
+                                            <td><a href="{{report}}">{{ report }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+               {% comment %} {% for report in image.reported %}
                 <p class="mb-0"><a class="reported" href="{{report}}">{{ report }}</a></p>
           
-                {% endfor %}
+                {% endfor %} {% endcomment %}
           </div>
         </div>
       </div>

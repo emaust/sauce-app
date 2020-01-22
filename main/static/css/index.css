@@ -1,3 +1,55 @@
+
+.leftside, .rightside {
+    height: 100vh;
+    width: 100%;
+
+}
+
+@media screen and (mid-width: 768px) {
+    .leftside, .rightside {
+        height:100vh;
+    }
+}
+
+.leftside {
+    background: white;
+}
+
+.rightside {
+    background: white;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    padding-top: 1em;
+}
+.container img {
+    padding-top: 1em;
+    width: contain;
+    height: auto;
+}
+
+.booton {
+    text-align: center;
+    background: white;
+    color: black;
+}
+
+btn:hover {
+    color: white;
+    background: black;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
 /* body {
     background-image: url("https://i.imgur.com/9kuv324.png");
     align-content: left;
@@ -6,11 +58,10 @@
     background-color: white;
 }
   */
-  .split {
+  /* .split {
     height: 100%;
     width: 50%;
     position: fixed;
-    z-index: 1;
     top: 0;
     overflow-x: hidden;
     padding-top: 20px;
@@ -28,9 +79,8 @@
 
 .container {
     height: 100%;
-    width: 100%;
+    width: 50%;
     padding-top: 1em;
-
 }
 .container img {
     padding-top: 1em;
@@ -38,7 +88,7 @@
     height: auto;
 }
 
-a {
+/* a {
     color: black;
     text-decoration: none;
 }
@@ -46,17 +96,26 @@ a {
 a:hover {
     color: white;
     text-decoration: none;
+} 
+
+/* .btn:hover {
+    background: black;
+    color: white;
 }
 
-.booton {
+.booton { */
     /* padding-top: 1em;
     padding-bottom: 1em; */
-    background-color: white;
+    /* background-color: white;
     color: black;
     margin-bottom: 2em;
 }
 
+.bhoover {
+    background: black;
+    color: white;
+} */
+
 .sauce {
-    padding-top: 3em;
     font-family: 'Anton', sans-serif;
 }
