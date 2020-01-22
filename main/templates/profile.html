@@ -3,145 +3,51 @@
 {% load static %}
 
 {% block styling %}
-<link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}">
+<link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 
-<div class="container" style="margin-left: 4em; margin-top 2em;">
-  <div class="content-section">
-    <div class="media">
-      {% comment %} <image class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
-    <div class="media-body">
-    <p><h1 class="display-4">{{ user.username }}</h1><small class="text-muted">Email: {{ user.email }}</small></p>
-
-    <div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Instagram: {{ user.profile.instagram }}</li>
-            <li class="list-group-item">Twitter: {{ user.profile.twitter }}</li>
-            <li class="list-group-item">Youtube:  {{ user.profile.youtube }}</li>
-            <li class="list-group-item">Facebook:  {{ user.profile.facebook }}</li>
-            <li class="list-group-item">Patreon:  {{ user.profile.patreon }}</li> 
-        <ul>
+    <div class="profile-head">
+    <p class="display-2 card-title banner tootle name-header">{{user.username}}</p>
+    <p class="text-muted display-4 tootle">{{ user.email }}</p>
     </div>
 
+     <div class="profile-head">
+     <p class="lead card-title banner tootle">Scroll down to explore your Results and Reports</p>   
+    {% for image in images %}
+
+        <div class="leftside d-flex justify-content-center align-items-center">
+            <div class="col-md-2 mt-3 pt-2">
+                <img src="{{ image.image_address }}" class="img-thumbnail" />
+            </div>
+            
+            <div>
+                <h2 class="font-weight-bold mb-3 black-text">{{ image.file_name}}</h2>
+                <p class="mb-0">{{ image.date_posted }}</p>
+            </div>
+                
+        </div>
         
-{% for image in images %}
-<div class="accordion md-accordion accordion-1" id="accordionEx23" role="tablist">
-  <div class="card">
-    <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading96">
-      <h5 class="text-uppercase mb-0 py-1">
-        <a class="white-text" data-toggle="collapse" href="#collapse96" aria-expanded="true"
-          aria-controls="collapse96">
-          <p class="text-muted small">Image # {{image.id}} -- {{ image.file_name}}</p>
-        </a>
-      </h5>
-    </div>
-    <div id="collapse96" class="collapse show" role="tabpanel" aria-labelledby="heading96"
-      data-parent="#accordionEx23">
-      <div class="card-body">
-        <div class="row my-4">
-          <div class="col-md-8">
-            <h2 class="font-weight-bold mb-3 black-text">{{ image.file_name}}</h2>
-            {% comment %} <p class=""><img src="{{ image.image_address }}" /></p> {% endcomment %}
-            <p class="mb-0">{{ image.date_posted }}</p>
-            <div class="col-md-4 mt-3 pt-2">
-            {% comment %} <div class="view z-depth-1"> {% endcomment %}
-              <img src="{{ image.image_address }}" class="img-thumbnail" />
-            {% comment %} </div> {% endcomment %}
-          </div>
-            <p class="lead">Results</p>
-               <table class="table table-hover">
+        <div class="rightside d-flex justify-content-center align-items-center">
+            <div class="no-gutters col-md-6">
+                <table class="table table-hover table-borderless">
                     <tbody>
                         {% for result in image.results %}
-                            <tr>
+                            <tr class=>
                                 <td><a href="{{result}}">{{ result }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% for report in image.reported %}
+                            <tr>
+                                <td><a class="report-link" href="{{report}}">{{report}}></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-             {% comment %} {% for result in image.results %}
-                <p class="mb-0" style="margin-left: 1em;"><a href="{{ result }}">{{result}}</a></p>
-                {% endfor %} {% endcomment %}
-            <p class="lead">Reported Sites</p>
-               <table class="table table-hover">
-                                <tbody>
-                                    {% for report in image.reported %}
-                                        <tr>
-                                            <td><a href="{{report}}">{{ report }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-               {% comment %} {% for report in image.reported %}
-                <p class="mb-0"><a class="reported" href="{{report}}">{{ report }}</a></p>
-          
-                {% endfor %} {% endcomment %}
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-{% endfor %}
-<!--Accordion wrapper-->
+    {% endfor %}
 
-
-
-
-
-
-
-        {% comment %} {% for image in images %} {% endcomment %}
-            {% comment %} <ul>
-                <li><img src="{{ image.image_address }}" /><li> {% endcomment %}
-                {% comment %} <li>{{ image.file_name }}</li> {% endcomment %}
-                {% comment %} <li>{{ image.date_posted }}</li> {% endcomment %}
-                {% comment %} <h3>Results</h3> {% endcomment %}
-                {% comment %} {% for result in image.results %}
-                    <ul>
-                        <li><a href="{{ result }}">{{result}}</a></li>
-                    </ul>
-                {% endfor %} {% endcomment %}
-                {% comment %} <h3>Reported</h3> {% endcomment %}
-                {% comment %} {% for report in image.reported %}
-                
-                    <ul>
-                        <li><a href="{{report}}"">{{ report }}</a></li>
-                    </ul>
-                {% endfor %} {% endcomment %}
-        {% comment %} {% endfor %} {% endcomment %}
-    
-      
-        {% comment %} <h1 class="display-4">{{ user.username }}</h2>
-        <p class="text-secondary">Email: {{ user.email }}</p> {% endcomment %}
-
-      </div>
-    </div>
-
-    
-
-    <div>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Click to Update Profile</a>
-    </div>
-
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            <form method="POST" enctype="multipart/form-data">
-                {%csrf_token%}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Update Profile Info</legend>
-                        {{ u_form|crispy }}
-                        {{ p_form|crispy }}
-                </fieldset>
-
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Update</button>
-                </div>
-            </form>
-        </div>
-  </div>
-</div>
 {% endblock content %}

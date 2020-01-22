@@ -1,21 +1,42 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block styling %}
+<link rel="stylesheet" type="text/css" href="{% static "css/register.css" %}">
+<link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+{% endblock %}
+
+
 {% block content %}
+<div class="row h-100 tippy-top">
+    <div class="col-sm-12 my-auto">
+        <div class="card card-block w-50 mx-auto">    
+        <div class="row h-100">
+        <div class="col-sm-12 my-auto">
+            <div class="card text-center search">
+                <div class="card-body">
+                    <p class="display-2 card-title banner tootle">Create Account</p>
+                    <div class="card-text">
+                    <form action='.' method="post">
+                        {% csrf_token %}
+                        <fieldset class="formgroup">
+                            {{form|crispy}}
+                        </fieldset> 
 
-  <section>
-    <form method="POST">
-      {%csrf_token%}
-      <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Create Account</legend>
-        {{ form|crispy }}
-      </fieldset>
-
-      <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Create Account</button>
-      </div>
-    </form>
-    <div>
-      <small class="text-muted">Already have an account? <a href="{% url 'login' %}" class="ml-2">Sign In</a>
+                   <div class="form-group">
+                        <button class="btn btn-dark" type="submit">Login</button>
+                    </div>
+                </form>
+                <div>
+                    <small class="text-muted">Already have an account? <a href="{% url 'login' %}" class="ml-2">Sign In</a>
+                </div>
+            </section>
+                        
+        </div>
     </div>
-  </section>
+</div>
+
+  
 {% endblock content %}

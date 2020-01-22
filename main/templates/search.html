@@ -31,11 +31,10 @@
                         <div class="card-text">
                         <form action='.' method="post">
                             {% csrf_token %}
-      
                             <fieldset class="formgroup">
-        {% comment %} <legend class="border-bottom mb-4">Search for Image</legend> {% endcomment %}
-                            {{form|crispy}}
+                                {{form|crispy}}
                             </fieldset> 
+                            
                             <p class="form-group"> 
                                 <input class="form-control" type="text" name="file_name" placeholder="Image Name"></input>
                             </p>

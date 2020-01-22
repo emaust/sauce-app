@@ -24,8 +24,6 @@ body.login {
 
 .login #container {
     background: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 4px;
     overflow: hidden;
     width: 28em;
     min-width: 300px;
@@ -76,4 +74,8 @@ body.login {
 
 .login .password-reset-link {
     text-align: center;
+}
+
+.tootle {
+    font-family: 'Anton', sans-serif;
 }
