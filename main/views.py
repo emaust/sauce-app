@@ -92,6 +92,8 @@ def search(request):
                     address = form.cleaned_data['image_address']
                     annotated = annotate(address)
                     results = page_matches(annotated)
+                    if len(results) == 0:
+                        messages.info(request, 'No other websites contain that image.')
                     upload.results = results
                     upload.save()
                     image = Image.objects.all().get(image_address=address)

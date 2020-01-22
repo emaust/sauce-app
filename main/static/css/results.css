@@ -1,0 +1,13 @@
+.tootle {
+    font-family: 'Anton', sans-serif;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: grey;
+    text-decoration: none;
+}
+

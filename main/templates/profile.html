@@ -1,73 +1,53 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
+{% block styling %}
+<link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}">
+<link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 
-  <div class="content-section">
-    <div class="media">
-      {% comment %} <image class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
-    <div class="media-body">
-    <p><h1 class="display-4">{{ user.username }}</h1><small class="text-muted">Email: {{ user.email }}</small></p>
-
-    <div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Instagram: {{ user.profile.instagram }}</li>
-            <li class="list-group-item">Twitter: {{ user.profile.twitter }}</li>
-            <li class="list-group-item">Youtube:  {{ user.profile.youtube }}</li>
-            <li class="list-group-item">Facebook:  {{ user.profile.facebook }}</li>
-            <li class="list-group-item">Patreon:  {{ user.profile.patreon }}</li> 
-        <ul>
+    <div class="profile-head">
+    <p class="display-2 card-title banner tootle name-header">{{user.username}}</p>
+    <p class="text-muted display-4 tootle">{{ user.email }}</p>
     </div>
 
-        
-        {% for image in images %}
-            <ul>
-                <li><img src="{{ image.image_address }}" /><li>
-                <li>{{ image.file_name }}</li>
-                <h3>Results</h3>
-                {% for result in image.results %}
-                    <ul>
-                        <li><a href="{{ result }}">{{result}}</a></li>
-                    </ul>
-                {% endfor %}
-                <h3>Reported</h3>
-                {% for report in image.reported %}
+     <div class="profile-head">
+     <p class="lead card-title banner tootle">Scroll down to explore your Results and Reports</p>   
+    {% for image in images %}
+
+        <div class="leftside d-flex justify-content-center align-items-center">
+            <div class="col-md-2 mt-3 pt-2">
+                <img src="{{ image.image_address }}" class="img-thumbnail" />
+            </div>
+            
+            <div>
+                <h2 class="font-weight-bold mb-3 black-text">{{ image.file_name}}</h2>
+                <p class="mb-0">{{ image.date_posted }}</p>
+            </div>
                 
-                    <ul>
-                        <li><a href="{{report}}"">{{ report }}</a></li>
-                    </ul>
-                {% endfor %}
-        {% endfor %}
-    
-      
-        {% comment %} <h1 class="display-4">{{ user.username }}</h2>
-        <p class="text-secondary">Email: {{ user.email }}</p> {% endcomment %}
-
-      </div>
-    </div>
-
-    
-
-    <div>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Click to Update Profile</a>
-    </div>
-
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            <form method="POST" enctype="multipart/form-data">
-                {%csrf_token%}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Update Profile Info</legend>
-                        {{ u_form|crispy }}
-                        {{ p_form|crispy }}
-                </fieldset>
-
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Update</button>
-                </div>
-            </form>
         </div>
-  </div>
+        
+        <div class="rightside d-flex justify-content-center align-items-center">
+            <div class="no-gutters col-md-6">
+                <table class="table table-hover table-borderless">
+                    <tbody>
+                        {% for result in image.results %}
+                            <tr class=>
+                                <td><a href="{{result}}">{{ result }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% for report in image.reported %}
+                            <tr>
+                                <td><a class="report-link" href="{{report}}">{{report}}></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock content %}

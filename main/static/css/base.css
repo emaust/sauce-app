@@ -1,0 +1,17 @@
+a {
+    text-decoration: none;
+    color: black
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ .reported {
+     color: orangered;
+}
+
+
+.under {
+    border-bottom: 2px solid black;
+}

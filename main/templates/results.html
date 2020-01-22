@@ -1,19 +1,98 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block styling %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/results.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+{% endblock %}
+
 
 {% block content %}
-    <img src="{{ image }}" alt="search image" />
-  <h1>Results</h1>
-  {% if user.is_authenticated %}
+
+<div class="row h-100 tippy-top">
+<div class="col-sm-12 my-auto">
+<div class="card card-block w-70 mx-auto">    
+    <div class="row h-100">
+        <div class="col-sm-12 my-auto">
+            <div class="card text-center search">
+                <div class="card-body">
+                <p class="display-2 card-title banner tootle">Content Results</p>
+                {% comment %} <p class="small">Click the red button to flag a website using your content without permission.</p> {% endcomment %}
+                    <div class="card-text">
+                        {% if user.is_authenticated %}
+                        <p class="small">Click the red button to flag a website using your content without permission.</p>
+                            <table class="table table-hover">
+                                <tbody>
+                                    {% for result in results %}
+                                    <tr>
+                                        <td><a href="{{ result }}">{{ result }}</a>
+                                            <form method="POST", action="#">
+                                            {%csrf_token%}  
+                                            {{ form  }}
+                                            <input type="hidden" id="reported" name="reported" value="{{ result }}"></input><br>
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
+                                            </form>
+                                        </td> 
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                                
+                                {% comment %} <ul class="list-group"> {% endcomment %}
+                                    {% comment %} <li class="list-group-item"> {% endcomment %}
+                                    {% comment %} <a href="{{ result }}">{{ result }}</a>      {% endcomment %}
+                                        {% comment %} <div>
+                                        <form method="POST", action="#">
+                                        {%csrf_token%}  
+                                        {{ form  }}
+                                        <input type="hidden" id="reported" name="reported" value="{{ result }}"></input><br>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
+                                        </form>
+                                        </div> 
+                                    </li>
+                                </ul>  {% endcomment %}
+                            {% comment %} {% endfor %} {% endcomment %}
+                        {% else %}
+                            <table class="table table-hover">
+                                <tbody>
+                                    {% for result in results %}
+                                        <tr>
+                                            <td><a href="{{result}}">{{ result }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                                {% comment %} <ul>
+                                    <li>{{ result }}</li>
+                                </ul>   {% endcomment %}
+                            {% comment %} {% endfor %} {% endcomment %}
+                        {% endif %}
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</section>
+</body>
+
+{% comment %} {% block content %} {% endcomment %}
+    {% comment %} <img src="{{ image }}" alt="search image" /> {% endcomment %}
+
+  {% comment %} {% if user.is_authenticated %}
     {% for result in results %}
-      <ul>
-        <li>
+      <ul class="list-group">
+        <li class="list-group-item">
           <a href="{{ result }}">{{ result }}</a>     
               <div>
                 <form method="POST", action="#">
                 {%csrf_token%}  
                  {{ form  }}
                  <input type="hidden" id="reported" name="reported" value="{{ result }}"></input>
-                <button type="submit" class="btn btn-primary btn-sm">  Report </button>
+                <button type="submit" class="btn btn-outline-danger btn-sm">Flag Misuse</button>
                 </form>
             </div> 
         </li>
@@ -26,7 +105,7 @@
                 <li>{{ result }}</li>
             </ul>  
         {% endfor %}
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     
   

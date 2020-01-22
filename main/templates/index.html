@@ -1,13 +1,71 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block styling %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+{% endblock %}
+
 
 {% block content %}
 
-<h1 class="display-1">SAUCE PROTECC</h1>
-<p class="lead">Protect your original content with a custom search</p>
 
+<div class="row no-gutters">
 
-<button  value="Search" class="btn btn-secondary btn-lg"><a href="{% url 'search'%}">Get Started Now</a></button>
+    <div class="no-gutters col-md-6">
 
+        <div class="leftside d-flex justify-content-center align-items-center">
+            <div>
+                <img src="https://i.imgur.com/9kuv324.png"  alt="monster" class="container">
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="no-gutters col-md-6">
+        <div class="rightside d-flex justify-content-center align-items-center">
+
+            <div> 
+
+                
+
+                <h1 class="display-1 sauce">SAUCE PROTECC</h1>
+                <p class="lead">Protect your original content with a simple <button value="Search" class="btn btn-secondary btn-lg booton"><a href="{% url 'search'%}">Search</a></button></p>
+    
+                
+            </div>
+
+        </div>
+
+</div
+{% comment %}     
+    
+    <button  value="Search" class="btn btn-secondary btn-lg booton"><a href="{% url 'search'%}">Get Started Now</a></button>
+    
+
+    </div> {% endcomment %}
+
+{% comment %} </div> {% endcomment %}
+
+{% comment %} <div class="split left">
+  <div class="left container">
+    <img src="https://i.imgur.com/9kuv324.png"  alt="monster">
+  </div>
+</div>
+    
+<div class="split right">
+    <div class="centered">
+        <h1 class="display-1 sauce">SAUCE PROTECC</h1>
+        <p class="lead">Protect your original content with a custom search</p>
+    </div>
+    
+    <div class= "container">
+    <button  value="Search" class="btn btn-secondary btn-lg booton"><a href="{% url 'search'%}">Get Started Now</a></button>
+  </div>
+</div>
+ {% endcomment %}
 
 
 {% endblock %}
+
+
